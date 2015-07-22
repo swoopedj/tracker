@@ -1,0 +1,60 @@
+<html>
+<head><title>Epiphany Tracker</title>
+	 
+	<script src="https://code.jquery.com/jquery-2.1.1.js" type="text/javascript"></script>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+</head>
+<header><h1>What A Time to be Alive!</h1>
+</header>
+<body>
+
+
+	<form name="post" id="postid">
+		Start time: <input id ="st" type="text">
+		Epiphany: <input id ="epiph" type="text">
+		End time: <input id="en" type="text">
+		Tags: <input id="tag" type="text">
+		<input type="button" id="save" value="Save">
+	</form>
+
+	<table id="tracker">
+		<tr>
+			<td class="start" class="field"></td>
+			<td class="end" class="field"></td>
+		</tr>
+		<tr>
+			<td class="epi" class="field"></td>
+		</tr>
+		<tr>
+			<td class="tags" class="field"></td>
+		</tr>
+	</table>
+
+<script>
+	var entries =[];
+
+	function addEntry(){
+		entries.push(parseEntry(document.post));
+		document.post.reset;
+	};
+
+	document.querySelector('#save').addEventListener('click', addEntry);
+	
+	function parseEntry(form){
+		var post = {};	
+		form = Array.prototype.slice.call(form);
+		form.forEach(function(elem){
+			if (elem.type !== 'button'){
+				post[elem.name] = elem.name === "tags" ? elem.value.split(',') : elem.value;
+			}
+		});
+		return post;
+	}
+</script>
+
+</body>
+<footer>
+</footer>
+</html>
